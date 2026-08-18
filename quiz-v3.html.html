@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pakistan Quiz Challenge</title>
+<style>
+body { font-family: Arial; text-align: center; background: #e0f7fa; padding: 20px; }
+.quiz-box { width: 90%; max-width: 600px; margin: 20px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 0 15px gray; }
+h2 { color: #004d40; }
+button { padding: 12px 20px; margin: 8px; width: 90%; border: none; border-radius: 8px; cursor: pointer; background: #00796b; color: white; font-size: 16px; }
+button:hover { background: #004d40; }
+#score { font-size: 20px; font-weight: bold; color: green; margin-top: 15px; }
+</style>
+</head>
+<body>
+<div class="quiz-box">
+<h2> 🎯 Pakistan Quiz Challenge </h2>
+<div id="status">Press Start to Begin!</div>
+<div id="question"></div>
+<div id="options"></div>
+<p id="score">Score: 0 / 20</p>
+<button onclick="startGame()">Start Game 🚀</button>
+<button onclick="exitGame()">Exit ❌</button>
+</div>
+<script>
+let questions = [
+{ q: "Pakistan ka national animal kya hai?", options: ["Markhor", "Lion", "Tiger", "Deer"], answer: 0 },
+{ q: "CPU ka full form kya hai?", options: ["Central Processing Unit", "Computer Personal Unit", "Central Power Unit", "None"], answer: 0 },
+{ q: "Pakistan ki currency kya hai?", options: ["Dollar", "Rupee", "Pound", "Euro"], answer: 1 },
+{ q: "Internet ki speed ko kya kehte hain?", options: ["Bandwidth", "Speedometer", "Processor", "Memory"], answer: 0 },
+{ q: "Pakistan ki national language kya hai?", options: ["Urdu", "English", "Punjabi", "Sindhi"], answer: 0 },
+{ q: "Computer ki memory ko kya kehte hain?", options: ["RAM", "ROM", "HDD", "SSD"], answer: 0 },
+{ q: "Pakistan ki capital kya hai?", options: ["Lahore", "Karachi", "Islamabad", "Peshawar"], answer: 2 },
+{ q: "MS Office ka pahela version kab release hua?", options: ["1989", "1990", "1991", "1992"], answer: 0 },
+{ q: "Pakistan ki largest city kya hai?", options: ["Lahore", "Karachi", "Faisalabad", "Rawalpindi"], answer: 1 },
+{ q: "Email ki @ sign ko kya kehte hain?", options: ["At the rate", "Hash", "Star", "Dot"], answer: 0 },
+{ q: "Pakistan ki national flower kya hai?", options: ["Jasmine", "Rose", "Lily", "Sunflower"], answer: 0 },
+{ q: "Computer virus ko kya kehte hain?", options: ["Malware", "Spyware", "Virus", "All of these"], answer: 3 },
+{ q: "K-2 kya hai?", options: ["Mountain", "River", "Desert", "City"], answer: 0 },
+{ q: "Wi-Fi ka full form kya hai?", options: ["Wireless Fidelity", "Web Fidelity", "Wireless File", "None"], answer: 0 },
+{ q: "Pakistan ki national poet kya hai?", options: ["Allama Iqbal", "Faiz Ahmed Faiz", "Ghalib", "None"], answer: 0 },
+{ q: "Google ki main service kya hai?", options: ["Gmail", "Drive", "Search Engine", "Maps"], answer: 2 },
+{ q: "Pakistan ki largest province kya hai?", options: ["Sindh", "Punjab", "Balochistan", "KPK"], answer: 2 },
+{ q: "URL ka full form kya hai?", options: ["Uniform Resource Locator", "Universal Resource Locator", "Uniform Result Locator", "None"], answer: 0 },
+{ q: "Pakistan ki national game kya hai?", options: ["Cricket", "Hockey", "Squash", "Football"], answer: 1 },
+{ q: "Ctrl + S ka use kya hai?", options: ["Copy", "Paste", "Save", "Cut"], answer: 2 }
+];
+
+let currentQ = 0;
+let score = 0;
+let gameStarted = false;
+
+function startGame() {
+if(gameStarted) return;
+gameStarted = true;
+document.getElementById("status").innerHTML = "Game Started! 🎯";
+currentQ = 0;
+score = 0;
+document.getElementById("score").innerHTML = "Score: 0 / 20";
+loadQuestion();
+}
+
+function loadQuestion() {
+if(currentQ >= questions.length) {
+document.getElementById("question").innerHTML = "<h3>Game Khatam! 🎉</h3>";
+document.getElementById("options").innerHTML = "<h2>Tumhara Final Score: " + score + "/" + questions.length + "</h2>";
+document.getElementById("status").innerHTML = "Press Start to Play Again!";
+gameStarted = false;
+return;
+}
+document.getElementById("question").innerHTML = "<h3>" + (currentQ+1) + ". " + questions[currentQ].q + "</h3>";
+let opts = "";
+questions[currentQ].options.forEach((opt, i) => {
+opts += `<button onclick="checkAnswer(${i})">${opt}</button>`;
+});
+document.getElementById("options").innerHTML = opts;
+}
+
+function checkAnswer(i) {
+if(i === questions[currentQ].answer) {
+score++;
+alert("Sahi Jawab! ✅ +1 Point");
+} else {
+alert("Ghalat Jawab! ❌ Sahi jawab: " + questions[currentQ].options[questions[currentQ].answer]);
+}
+document.getElementById("score").innerHTML = "Score: " + score + " / 20";
+currentQ++;
+loadQuestion();
+}
+
+function exitGame() {
+if(confirm("Are you sure you want to exit?")) {
+document.getElementById("status").innerHTML = "Game Exited!";
+document.getElementById("question").innerHTML = "";
+document.getElementById("options").innerHTML = "";
+gameStarted = false;
+}
+}
+</script>
+</body>
+</html>
+```
